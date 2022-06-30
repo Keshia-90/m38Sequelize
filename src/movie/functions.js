@@ -9,7 +9,7 @@ exports.addMovie = async (movieObj) => {
     }
 };
 
-exports.listMovie = async (movieObj) => {
+exports.listMovies = async (movieObj) => {
     try {
         const response = await Movie.findAll();
         console.log(response);
@@ -20,7 +20,8 @@ exports.listMovie = async (movieObj) => {
 
 exports.deleteMovie = async (movieObj) => {
     try {
-        const response = await Movie.destroy();
+        //needs the where-similar to how workbench
+        const response = await Movie.destroy({where: movieObj});
         console.log(response);
     } catch (error) {
         console.log(error);
@@ -29,7 +30,7 @@ exports.deleteMovie = async (movieObj) => {
 
 exports.updateMovie = async (movieObj) => {
     try {
-        const response = await Movie.update();
+        const response = await Movie.update({ actor:yargsObj.update }, { title: yargsObj.title, actor: yargsObj.actor});
         console.log(response);
     }catch (error) {
         console.log(error);
