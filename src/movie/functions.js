@@ -28,11 +28,11 @@ exports.deleteMovie = async (movieObj) => {
     }
 };
 
-exports.updateMovie = async (movieObj) => {
-    try {
-        const response = await Movie.update({ actor:yargsObj.update }, { title: yargsObj.title, actor: yargsObj.actor});
+exports.updateMovies = async (newActor,oldActor) => {
+    try{
+        const response = await Movie.update(newActor,oldActor);
         console.log(response);
-    }catch (error) {
+    } catch (error) {
         console.log(error);
     }
-};
+}

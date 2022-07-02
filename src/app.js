@@ -1,19 +1,20 @@
 const yargs = require("yargs");
 const { sequelize } = require("./db/connection");
-const { addMovie, listMovies, deleteMovie, updateMovie } = require("./movie/functions");
+const { addMovie, listMovies, deleteMovie, updateMovies } = require("./movie/functions");
 
 const app = async (yargsObj) => {
     try {
-    await sequelize.sync({ alter: true });
+      //had to change alter to false not sure why but would say --sqlMessage: 'Too many keys specified; max 64 keys allowed',-- in the terminal 
+    await sequelize.sync({ alter: false });
     if (yargsObj.add) {
       //add something to movie table
     await addMovie({ title: yargsObj.title, actor: yargsObj.actor, rating: yargsObj.rating });
     } else if (yargsObj.list) {
       //list contents of movie table
     await listMovies();
-    } else if (yargsObj.update) {
+    } else if(yargsObj.update) {
       //update one entry in movie table
-    await updateMovie({ actor:yargsObj.update},{ title: yargsObj.title, actor: yargsObj.actor, rating: yargsObj.rating });
+      await updateMovies({actor:yargsObj.newActor},{where:{title:yargsObj.title}});
     } else if (yargsObj.delete) {
       //delete entry from movie table
     await deleteMovie({ title: yargsObj.title });
